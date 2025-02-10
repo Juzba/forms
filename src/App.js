@@ -1,21 +1,12 @@
-import "./App.scss";
+import InputData  from "./components/InputData"
+import "./App.scss"
 
 const App = () => {
-	const [userName, setUserName] = useState("");
+  return (
+	<div className="app">
+		<InputData/>
+	</div>
+  )
+}
 
-	const formSubmibmit = (e) => {
-		e.preventDefault();
-		console.log(e);
-	};
-
-	return (
-		<article className='App'>
-			<form>
-				<input type='text' className='userName' placeholder='Jméno' />
-				<input onClick={formSubmibmit} type='submit' value='Odeslat' />
-			</form>
-		</article>
-	);
-};
-
-export default App;
+export default App
