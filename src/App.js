@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.scss";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => {
+	const [userName, setUserName] = useState("");
+
+	const formSubmibmit = (e) => {
+		e.preventDefault();
+		console.log(e);
+	};
+
+	return (
+		<article className='App'>
+			<form>
+				<input type='text' className='userName' placeholder='Jméno' />
+				<input onClick={formSubmibmit} type='submit' value='Odeslat' />
+			</form>
+		</article>
+	);
+};
 
 export default App;
