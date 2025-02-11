@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { use, useState } from 'react';
 import './InputData.scss';
 
 const InputData = () => {
@@ -7,26 +7,29 @@ const InputData = () => {
     const [error, setError] = useState('');
     const [userData, setUserData] = useState([]);
 
-    const submitChange = (e) => {
-        e.preventDefault();
-
-        if (userName && password) {
-            setUserData([userName, password]);
-        } else {
-            setError("Chyba zadání");
-        }
+    const reset = (erorText) => {
+        setError(erorText);
         setUserName('');
         setPassword('');
     };
 
-    console.clear();
-    console.log(userName);
-    console.log(password);
-    console.log(userData);
+    const submitChange = (e) => {
+        e.preventDefault();
+
+        if (userName.length < 2 && password.length < 6) {
+            reset('Chyba: Krátké zadání');
+        } else if (userName.length > 10 && password.length > 10) {
+            reset('Chyba: Dlouhé zadání');
+        } else {
+            const oneUser = { userName, password };
+            setUserData([...userData, oneUser]);
+            reset('Ok');
+        }
+    };
 
     return (
         <section className='input-data'>
-            <form id='form' name='form'>
+            <form onSubmit={submitChange} id='form' name='form'>
                 <h2>Login</h2>
                 <p>{error}</p>
                 <input
@@ -43,8 +46,11 @@ const InputData = () => {
                     value={password}
                     placeholder='Password'></input>
 
-                <input type='submit' value='Submit' onClick={submitChange}></input>
+                <input type='submit' value='Submit'></input>
             </form>
+            {userData.map(({ userName, password }, index) => {
+                return <p className='item' key={index}>{`Jmeno: ${userName} Heslo: ${password}`}</p>;
+            })}
         </section>
     );
 };

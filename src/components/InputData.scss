@@ -1,8 +1,10 @@
 .input-data {
     // border: red solid;
+    margin-top: 60px;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    // justify-content: center;
     align-items: center;
 
     form {
@@ -11,6 +13,7 @@
         box-sizing: border-box;
         width: 300px;
         height: 250px;
+        margin-bottom: 30px;
         display: flex;
         flex-direction: column;
         justify-items: stretch;
@@ -22,21 +25,20 @@
         padding: 15px 0;
 
         h2 {
-           margin: 0 0 25px;
-           height: 40px;
-           text-shadow: 0 0 5px rgb(224, 27, 27);
+            margin: 0 0 25px;
+            height: 40px;
+            text-shadow: 0 0 5px rgb(224, 27, 27);
         }
 
-        p{
+        p {
             position: absolute;
             margin: 0;
-            top:55px;
+            top: 55px;
             left: 40px;
             // padding: 10px;
             width: 73%;
             overflow: hidden;
             text-shadow: 0 0 5px rgb(224, 27, 27);
-
         }
 
         .inp {
@@ -48,11 +50,17 @@
         input[type='submit'] {
             background-color: black;
             border: none;
-            box-shadow:0 0 25px white;
+            box-shadow: 0 0 25px white;
             color: rgb(255, 255, 255);
             margin-top: 10px;
             padding: 5px 10px;
             cursor: pointer;
         }
+    }
+    .item {
+        margin: 10px;
+        box-shadow: 0 0 15px red;
+        padding: 10px;
+        font-size: 25px;
     }
 }
