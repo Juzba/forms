@@ -1,55 +1,63 @@
-import { use, useState } from 'react';
+import { useState } from 'react';
 import './InputData.scss';
 
 const InputData = () => {
-    const [userName, setUserName] = useState('');
-    const [password, setPassword] = useState('');
+    const [user, setUser] = useState({ Name: '', Password: '', Age: '' });
+    const { Name, Password, Age } = user;
+
     const [error, setError] = useState('');
     const [userData, setUserData] = useState([]);
 
     const reset = (erorText) => {
         setError(erorText);
-        setUserName('');
-        setPassword('');
+        setUser({ Name: '', Password: '', Age: '' });
     };
 
     const submitChange = (e) => {
         e.preventDefault();
 
-        if (userName.length < 2 && password.length < 6) {
-            reset('Chyba: Krátké zadání');
-        } else if (userName.length > 10 && password.length > 10) {
-            reset('Chyba: Dlouhé zadání');
-        } else {
-            const oneUser = { userName, password };
-            setUserData([...userData, oneUser]);
+        if (Name && Password && Age) {
+            const newUser = {...user, Id: new Date().getTime()}
+            setUserData([...userData, newUser]);
             reset('Ok');
         }
     };
 
+    const formChange = (event) => {
+        const name = event.target.name;
+        const value = event.target.value;
+
+        setUser({ ...user, [name]: value });
+    };
+
     return (
         <section className='input-data'>
-            <form onSubmit={submitChange} id='form' name='form'>
+            <form onSubmit={submitChange}>
                 <h2>Login</h2>
                 <p>{error}</p>
-                <input
-                    onChange={(e) => setUserName(e.target.value)}
-                    className='inp'
-                    type='text'
-                    value={userName}
-                    placeholder='Jméno'></input>
+                <input onChange={formChange} name='Name' className='inp' type='text' value={Name} placeholder='Jméno'></input>
 
                 <input
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={formChange}
+                    name='Password'
                     className='inp'
                     type='password'
-                    value={password}
+                    value={Password}
                     placeholder='Password'></input>
+
+                <input onChange={formChange} name='Age' type='number' className='inp' value={Age} placeholder='Age'></input>
 
                 <input type='submit' value='Submit'></input>
             </form>
-            {userData.map(({ userName, password }, index) => {
-                return <p className='item' key={index}>{`Jmeno: ${userName} Heslo: ${password}`}</p>;
+            {userData.map(({ Name, Password, Age, Id }) => {
+                return (
+                    <div className='item' key={Id}>
+                        <h4 className='result'>{`Jmeno: ${Name}`}</h4>
+                        <p className='result'> {`Heslo ${Password}`}</p>
+                        <p className='result'> {`Age: ${Age}`}</p>
+                        <p className='result'> {`Id: ${Id}`}</p>
+                    </div>
+                );
             })}
         </section>
     );
